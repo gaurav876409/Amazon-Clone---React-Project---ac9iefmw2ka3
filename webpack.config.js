@@ -2,10 +2,18 @@ const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: './src/index.js',
-
+    devServer: {
+        port: 3000,
+        contentBase: path.resolve(__dirname, "dist"),
+        historyApiFallback: { index: "/", disableDotRule: true },
+    },
     output: {
-        path: path.join(__dirname, "/dist"),
-        filename: "index_bundle.js",
+        // path: path.join(__dirname, "/dist"),
+        // filename: "index_bundle.js",
+        path: path.resolve(__dirname, 'build'), // specify the output path here
+        // filename: 'bundle.js',
+        filename: '[name].bundle.js', // generate separate JavaScript files
+        chunkFilename: '[name].chunk.js',
     },
     module: {
         rules: [

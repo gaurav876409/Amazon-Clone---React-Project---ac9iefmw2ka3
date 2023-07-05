@@ -1,0 +1,14 @@
+.LeftSize_main {
+    /* height: 96%; */
+    height: auto;
+    width: 180px;
+    padding: 40px;
+}
+.leftSide_header {
+    font-weight: bold;
+    margin: 10px;
+}
+.brandname {
+    display: block;
+    width: 100px;
+}
