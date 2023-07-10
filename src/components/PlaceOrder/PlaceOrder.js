@@ -16,7 +16,7 @@ const PlaceOrder = (props) => {
         increment(productDetails);
     }
     useEffect(() => {
-
+        console.log("line number 19")
         axios.get("https://content.newtonschool.co/v1/pr/63b6c911af4f30335b4b3b89/products")
             .then((response) => {
                 console.log(response)
@@ -26,6 +26,7 @@ const PlaceOrder = (props) => {
 
                 console.log(itemfilter);
                 setProductDetails(itemfilter[0]);
+
             })
             .catch((error) => {
                 console.log("showing error", error)

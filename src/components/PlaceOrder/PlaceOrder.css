@@ -3,7 +3,8 @@
 }
 .placeorder_image {
     width: 300px;
-    height: auto;
+    height: 250px;
+    object-fit: contain;
     position: relative;
     top: 25%;
     left: 25%;

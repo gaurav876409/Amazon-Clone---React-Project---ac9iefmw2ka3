@@ -1,6 +1,8 @@
 .AdvertisementOne_main {
+    /* height: 60vh; */
     height: 380px;
     min-width: 317px;
+    /* min-width: 23vw; */
     background: white;
     margin: 10px;
 }
@@ -16,8 +18,10 @@
     flex-wrap: wrap;
 }
 .ad_fourImage {
+    /* width: 10vw; */
     width: 133px;
     height: 100px;
+    /* height: 16vh; */
     margin: 5px;
 }
 .AdvertisementOne_footer {

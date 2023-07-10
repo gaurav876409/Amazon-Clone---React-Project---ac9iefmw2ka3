@@ -8,7 +8,7 @@ import CheckOut from './Checkout/CheckOut';
 import CartContextProvider from './CartContext';
 import LogIn from './NavBar/LogIn';
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
-import Footer from './Footer/Footer';
+// import Footer from './Footer/Footer';
 import Layout from './Layout';
 
 
