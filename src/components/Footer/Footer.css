@@ -1,8 +1,3 @@
-/* .footer_body{
-    position: relative;
-    bottom: 0;
-    /* bottom: 0px; */
-/* } */ 
 .footer_top{
     width: 100%;
     height: 50px;
@@ -92,6 +87,7 @@
 .footer_middle_3 > ul{
     height: 40px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 10px;
 }
@@ -149,4 +145,9 @@
     margin-top: -10px;
     margin-bottom: 20px;
     font-weight: 500;
+}
+@media screen and (max-width: 480px) {
+    .footer_middle_3{
+        height: 100px;
+    }
 }

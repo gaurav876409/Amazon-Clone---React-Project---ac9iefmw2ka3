@@ -1,16 +1,24 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import "./checkOut.css";
 import Grid from '@mui/material/Grid';
 import { CartContext } from '../CartContext';
 import CheckoutItems from './CheckoutItems';
 
 const CheckOut = () => {
-    const { item, size, increment, removeFromCart } = useContext(CartContext);
+    const { item, increment, removeFromCart, updateQuantity } = useContext(CartContext);
+
+    const [size, setSize] = useState(0);
+
+    useEffect(() => {
+        // Calculate the total quantity whenever 'item' changes
+        const totalQuantity = item.reduce((total, currentItem) => total + currentItem.quantity, 0);
+        setSize(totalQuantity);
+    }, [item]);
 
     const cartValue = function () {
         let price = 0;
         for (let i = 0; i < item.length; i++) {
-            price += parseInt(item[i].price);
+            price += (item[i].price * item[i].quantity);
         }
         return price;
     }
@@ -24,7 +32,7 @@ const CheckOut = () => {
                             {
                                 item.length > 0 ?
                                     item.map((value, index) => (
-                                        <CheckoutItems value={value} index={index} removeFromCart={removeFromCart} />
+                                        <CheckoutItems value={value} index={index} removeFromCart={removeFromCart} updateQuantity={updateQuantity}/>
                                     ))
                                     : <div style={{ height: "100vh", margin: "30px" }}> Please buy something</div>
                             }
@@ -32,10 +40,10 @@ const CheckOut = () => {
                     </div>
                 </Grid>
                 <Grid item={2}>
-                    <div style={{ width: "300px", height: "200px", padding: "20px", marginTop: "25px", backgroundColor: "white" }}>
-                        <div style={{ fontSize: "26px" }}>Subtotal ( {size} items): <strong>{cartValue()}</strong></div>
+                    <div className='checkout_total'>
+                        <div style={{ fontSize: "24px" }}>Subtotal ({size} items): <strong>{cartValue()}</strong></div>
                         <div style={{ paddingTop: "25px " }}>
-                            <button className="placeorder_button" >Proceed to Buy</button>
+                            <button className="placeorder_button">Proceed to Buy</button>
                         </div>
                     </div>
                 </Grid>

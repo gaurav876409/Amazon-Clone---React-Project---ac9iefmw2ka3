@@ -16,17 +16,12 @@ const PlaceOrder = (props) => {
         increment(productDetails);
     }
     useEffect(() => {
-        console.log("line number 19")
         axios.get("https://content.newtonschool.co/v1/pr/63b6c911af4f30335b4b3b89/products")
             .then((response) => {
-                console.log(response)
                 let itemfilter = response.data.filter((item) => {
                     if (item.id == id) return item;
                 })
-
-                console.log(itemfilter);
                 setProductDetails(itemfilter[0]);
-
             })
             .catch((error) => {
                 console.log("showing error", error)
@@ -37,17 +32,17 @@ const PlaceOrder = (props) => {
     }
     return (
         <div className='placeorder'>
-            <Grid container>
-                <Grid item xs={5}>
+            <Grid container spacing={2}>
+                <Grid xs={12} sm={5}>
                     <img className="placeorder_image" src={productDetails?.image} />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} sm={4}>
                     {productDetails && (
                         <div className="placeholder_description">
                             <div style={{ fontSize: "24px", lineHeight: "32px", fontWeight: 500 }}> {productDetails.title} </div>
                             <div>
-                            <Rating value={productDetails?.rating?.rate} fractions={2} style={{ fontSize: "20px" }} readOnly />
-                                 ratings |
+                                <Rating value={productDetails?.rating?.rate} fractions={2} style={{ fontSize: "20px" }} readOnly />
+                                ratings |
                                 {productDetails?.rating?.count}+ answered questions
                             </div>
                             <hr></hr>
@@ -62,24 +57,23 @@ const PlaceOrder = (props) => {
                                 <br></br>
                                 <div style={{ fontSize: "24px" }} className="textgap">About this item</div>
                                 <div>
-                                {productDetails.description}
+                                    {productDetails.description}
                                 </div>
                             </div>
                         </div>
                     )}
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={12} sm={3}>
                     <Paper variant="outlined" className="placeorder_order">
-                        <div>
-                            <div><strong>Without Exchange</strong></div>
-                            <div>50,999</div>
-                            <div style={{ marginTop: "10px" }}><strong>Add an Accessory</strong></div>
-                            <div>
-                                <label><input type="checkbox" ></input>Apple Airpods</label><br></br>
-                                <label><input type="checkbox" ></input>Apple 20W USB Power Adapter</label>
-                            </div>
-                            <div >
-
+                        <div className='placeorder_flex'>
+                                <div><strong>Without Exchange</strong></div>
+                                <div>50,999</div>
+                                <div style={{ marginTop: "10px" }}><strong>Add an Accessory</strong></div>
+                                <div>
+                                    <label><input type="checkbox" ></input>Apple Airpods</label><br></br>
+                                    <label><input type="checkbox" ></input>Apple 20W USB Power Adapter</label>
+                                </div>
+                            <div className='placeorder_mobile'>
                                 <button className="placeorder_button addtocart" onClick={addTOCart}>Add to Cart</button>
                                 <Link to="/checkout">
                                     <button className="placeorder_button buynow" key="buynow">Buy Now</button>

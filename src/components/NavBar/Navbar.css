@@ -1,55 +1,52 @@
-.sticky-navbar{
-    position: fixed;
-    top: 0;
+.navbar_container {
+    width: 100%;
 }
+
 .navbar_component {
     width: 100%;
     height: 60px;
     background-color: #131A22;
     display: flex;
+    justify-content: space-between;
+    color: white;
+    position: fixed;
+    top: 0;
 }
-.navbar_logo{
+
+.navbar_logo {
     background: url('https://ik.imagekit.io/zefo833xz/amazon-image/amazon-image/sprite_350x.png?updatedAt=1687788856633') no-repeat -9px -50px;
-	width: 98px;
-	height: 31px;
+    width: 98px;
+    height: 31px;
     margin: 18px;
 }
+
 .navbar_locator {
-    display:flex;
+    display: flex;
     margin: 20px 0px;
 }
+
 .navbar_location {
     color: white;
     font-weight: bold;
     margin-left: 5px;
 }
-.navbar_locatorImage{
+
+.navbar_locatorImage {
     background: url('https://ik.imagekit.io/zefo833xz/amazon-image/amazon-image/sprite_350x.png?updatedAt=1687788856633') no-repeat -70px -340px;
-	width: 19px;
-	height: 21px;
+    width: 19px;
+    height: 21px;
 }
+
 .navbar_searchcomponent {
-    display:flex;
-    margin-left: 72px;
+    display: flex;
 }
-.navbar_seaarchboxdiv {
-    background-color: #FEBE68;
-    height: 44px;
-    width: 48px;
-    border-radius: 0px 5px 5px 0px;
-    margin-top: 8px;
-}
-.navbar_searchbox{
+
+.navbar_searchbox {
     width: 45vw;
     height: 38px;
     margin-top: 8px;
 }
-.navbar_searchicon {
-    background: url('https://ik.imagekit.io/zefo833xz/amazon-image/amazon-image/sprite_350x.png?updatedAt=1687788856633') no-repeat -9px -289px;
-	width: 23px;
-	height: 23px;
-    margin: 12px;
-}
+
 .nav_dropdown {
     width: 60px;
     height: 44px;
@@ -58,34 +55,45 @@
     border-radius: 5px 0px 0px 5px;
     text-align-last: center;
 }
-.navbar_signin{
-    width: 120px;
-    margin-top: 13px;
-    margin-left: 60px;
+
+.navbar_seaarchboxdiv {
+    background-color: #FEBE68;
+    height: 42px;
+    width: 48px;
+    border-radius: 0px 5px 5px 0px;
+    margin-top: 9px;
 }
-.navbar_returns {
-    width: 80px;
-    margin-top:13px;
-    margin-left:10px
+
+.navbar_searchicon {
+    background: url('https://ik.imagekit.io/zefo833xz/amazon-image/amazon-image/sprite_350x.png?updatedAt=1687788856633') no-repeat -9px -289px;
+    width: 23px;
+    height: 23px;
+    margin: 12px
 }
-.navbar_cart {
-    display:flex;
-    margin-top: 15px;
-}
+
 .navbar_text {
     color: white;
+    margin-top: 13px;
 }
+
 .cart_image {
     background: url('https://ik.imagekit.io/zefo833xz/amazon-image/amazon-image/sprite_350x.png?updatedAt=1687788856633') no-repeat -217px -336px;
     width: 43px;
-	height: 30px;
+    height: 30px;
 }
+
+.navbar_cart {
+    display: flex;
+    margin-top: 15px;
+}
+
 .navbar_text_cart {
     margin-top: 13px;
     font-weight: bold;
     position: relative;
     left: -10px;
 }
+
 .cart_item {
     font-weight: bold;
     position: relative;
@@ -93,16 +101,126 @@
     top: -3px;
     color: #F08805;
 }
+
+::placeholder {
+    font-size: 16px;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    font-weight: 500;
+    font-family: inherit;
+    color: #3c6969;
+}
+
 .navbar_footer {
-    width: 100%;
     height: 30px;
     background-color: #22303E;
     color: white;
     display: flex;
     margin-top: 60px;
 }
+
 .navbar_footer_text {
     margin: 5px 10px;
     font-size: 14px;
     font-weight: bold;
+}
+
+.hamburger-menu {
+    display: none;
+}
+
+.hide_for_mobile {
+    display: none;
+}
+.hamburger_menu_mobile{
+    display: none;
+}
+
+/* media query for tab */
+@media screen and (max-width: 820px) {
+    .navbar_searchbox {
+        width: 25vw;
+    }
+
+    .navbar_component {
+        width: 100vw;
+    }
+
+    .navbar_footer_text {
+        font-size: 12px;
+        margin: 5px 5px;
+    }
+}
+
+/* media query for phone */
+@media screen and (max-width: 480px) {
+    .navbar_footer {
+        display: none;
+    }
+
+    .navbar_locator {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: block;
+        margin-top: 20px;
+        margin-right: 5px;
+    }
+
+    .navbar_text {
+        display: none;
+    }
+
+    .navbar_searchbox {
+        width: 35vw;
+    }
+
+    .mobile_navbar_text {
+        width: 50vw;
+        height: 200px;
+        background-color: red;
+        margin-top: 70px;
+        position: relative;
+    }
+
+    .hide_for_mobile {
+        display: none;
+    }
+
+    .hamburger_menu_mobile {
+        position: absolute;
+        width: 403px;
+        background-color: #131A22;
+        display: flex;
+        top: 60px;
+        height: 90px;
+        padding: 0 40px;
+        gap: 126px;
+    }
+    .hamburger_menu_toggle{
+        display: none;
+    }
+    .mobile_signIn{
+        width: 111px;
+        color: white;
+        margin-top: 10px;
+    }
+    .mobile_order{
+        width: 111px;
+        color: white;
+        position: relative;
+        right: 50px;
+        top: 10px;
+    }
+    .mobile_cart{
+        display: flex;
+        width: 150px;
+        position: relative;
+        right: 80px;
+        top: 10px;
+    }
+    .navbar_text_cart{
+        color: white;
+    }
 }

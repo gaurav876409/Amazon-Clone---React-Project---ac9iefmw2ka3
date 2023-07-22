@@ -5,3 +5,8 @@
     background-size: 100vw;
     background-color: #EAEDED;
 }
+@media screen and (max-width: 480px) {
+    .mainpage{
+        margin-top: 60px;
+    }
+}
