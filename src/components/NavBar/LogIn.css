@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* background-image: url("https://as2.ftcdn.net/v2/jpg/01/19/11/55/1000_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg"); */
 
 }
 .login_logo{
@@ -14,6 +15,10 @@
     margin-left: auto;
     margin-right: auto;
 }
+.login_logo:hover{
+    background-color: burlywood;
+    transition: all .2s ease-in-out;
+}
 .login_container{
     width: 300px;
     height: fit-content;
@@ -22,6 +27,8 @@
     border-radius: 5px;
     border: 1px solid lightgrey;
     padding: 20px;
+    box-shadow: 5px 5px 5px 5px rgb(194, 147, 147);
+    background-color: white;
 }
 .login_container > h1{
     font-weight: 500;
@@ -50,10 +57,21 @@
     border: 1px solid;
     border-color: #a88734 #9c7e31 #846a29;
 }
+.login_signinbutton:hover{
+    background-color: #634b10;
+    transition: all .2s ease-in-out;
+}
 .login_registerbutton{
     border-radius: 2px;
     width: 100%;
     height: 30px;
     border: 1px solid;
     border-color: darkgray;
+}
+.text_color{
+    background-color: rgb(170, 170, 238);
+}
+.text_color:hover{
+    transform: scale(1.1);
+    transition: all .2s ease-in-out;
 }

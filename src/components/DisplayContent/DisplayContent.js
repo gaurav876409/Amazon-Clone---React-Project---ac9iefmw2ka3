@@ -24,13 +24,13 @@ const DisplayContent = () => {
   const handleFilterChange = (filterValues) => {
     const filteredItems = listOfProduct.filter((item) => {
       if (filterValues.men && item.category === "men's clothing") return true;
-      if (filterValues.jewelry && item.category === "jewelery") return true;
+      if (filterValues.jewelery && item.category === "jewelery") return true;
       if (filterValues.electronics && item.category === "electronics") return true;
       if (filterValues.women && item.category === "women's clothing") return true;
       return false;
     });
-
-    // setFilteredProducts(filteredItems);
+    console.log(filteredItems)
+    setFilteredProducts(filteredItems);
     if (
       !filterValues.men &&
       !filterValues.jewelry &&

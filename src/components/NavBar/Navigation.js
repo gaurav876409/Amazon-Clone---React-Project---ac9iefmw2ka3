@@ -3,8 +3,10 @@ import { CartContext } from '../CartContext';
 import { Link } from 'react-router-dom';
 import "./Navbar.css"
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useLocation } from "react-router";
 
 const Navbar = () => {
+  const locationDetails = useLocation();
   const [showMediaIcons, setShowMediaIcons] = useState(false);
   const { size } = useContext(CartContext);
   return (
@@ -38,7 +40,7 @@ const Navbar = () => {
         <Link to="/login">
           <div className="navbar_text navbar_signin hide_for_desktop"
           >
-            <div style={{ fontSize: "14px" }}>Hello, Sign In</div>
+            <div style={{ fontSize: "14px" }}>Hello, Sign In{locationDetails?.state?.userName}</div>
             <div style={{ fontWeight: "bold" }}>Account & List</div>
           </div>
         </Link>

@@ -23,6 +23,12 @@ const LogIn = () => {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
+                const userName = userCredential.user.displayName;
+                navigate("/", {
+                    state: {
+                      userName,
+                    },
+                  });
                 console.log("seccess", user)
                 // ...
             })
@@ -56,9 +62,9 @@ const LogIn = () => {
                 <h1>Sign-In</h1>
                 <form>
                     <h5>E-mail</h5>
-                    <input type='text' value={email} placeholder='Enter your email' onChange={e => setEmail(e.target.value)} />
+                    <input type='text' className='text_color' value={email} placeholder='Enter your email' onChange={e => setEmail(e.target.value)} />
                     <h5>Password</h5>
-                    <input type='password' placeholder='Enter your password' value={password} onChange={e => setPassword(e.target.value)} />
+                    <input type='password' className='text_color' placeholder='Enter your password' value={password} onChange={e => setPassword(e.target.value)} />
                     <button type='submit' onClick={SignIn} className='login_signinbutton'>Sign In</button>
                 </form>
                 <p>By signing-in you agree to the Amazon Clone condition of use and sale</p>
