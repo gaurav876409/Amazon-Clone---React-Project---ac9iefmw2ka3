@@ -232,7 +232,7 @@ const ReviewStep = ({ formData, setActiveStep, activeStep }) => {
           <img src="https://www.nicepng.com/png/detail/1-10729_free-vector-green-checkmark-clip-art-green-circle.png" alt="Checkmark" />
           <h2>Payment Successful!</h2>
           <p>Thank you for your purchase.</p>
-          <Link to="/order">
+          <Link to='/order'>
             <button>See Orders</button>
           </Link>
         </div>
