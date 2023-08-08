@@ -17,13 +17,13 @@ const LogIn = () => {
                     .then((userCredential) => {
                         console.log(userCredential)
                         const userName = userCredential.user.displayName;
+                        localStorage.setItem('userName', userName);
                         navigate('/')
                         // navigate("/", {
                         //     state: {
                         //         userName,
                         //     },
                         // });
-                        localStorage.setItem('userName', userName);
                     })
                     .catch((error) => {
                         console.log("Error", error)
