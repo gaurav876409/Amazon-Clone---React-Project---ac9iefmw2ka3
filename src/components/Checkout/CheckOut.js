@@ -3,6 +3,7 @@ import "./checkOut.css";
 import Grid from '@mui/material/Grid';
 import { CartContext } from '../CartContext';
 import CheckoutItems from './CheckoutItems';
+import { Link } from 'react-router-dom';
 
 const CheckOut = () => {
     const { item, increment, removeFromCart, updateQuantity } = useContext(CartContext);
@@ -20,7 +21,7 @@ const CheckOut = () => {
         for (let i = 0; i < item.length; i++) {
             price += (item[i].price * item[i].quantity);
         }
-        return price;
+        return price.toFixed(2);
     }
     return (
         <div className="checkout_body">
@@ -32,7 +33,7 @@ const CheckOut = () => {
                             {
                                 item.length > 0 ?
                                     item.map((value, index) => (
-                                        <CheckoutItems value={value} index={index} removeFromCart={removeFromCart} updateQuantity={updateQuantity}/>
+                                        <CheckoutItems value={value} index={index} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />
                                     ))
                                     : <div style={{ height: "100vh", margin: "30px" }}> Please buy something</div>
                             }
@@ -42,9 +43,11 @@ const CheckOut = () => {
                 <Grid item={2}>
                     <div className='checkout_total'>
                         <div style={{ fontSize: "24px" }}>Subtotal ({size} items): <strong>{cartValue()}</strong></div>
-                        <div style={{ paddingTop: "25px " }}>
-                            <button className="placeorder_button">Proceed to Buy</button>
-                        </div>
+                        <Link to="/payment">
+                            <div style={{ paddingTop: "25px " }}>
+                                <button className="placeorder_button">Proceed to Buy</button>
+                            </div>
+                        </Link>
                     </div>
                 </Grid>
             </Grid>

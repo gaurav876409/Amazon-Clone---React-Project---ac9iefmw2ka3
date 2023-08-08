@@ -3,10 +3,11 @@ import { CartContext } from '../CartContext';
 import { Link } from 'react-router-dom';
 import "./Navbar.css"
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useLocation } from "react-router";
+// import { useLocation } from "react-router";
 
 const Navbar = () => {
-  const locationDetails = useLocation();
+  const userName = localStorage.getItem('userName');
+  // const locationDetails = useLocation();
   const [showMediaIcons, setShowMediaIcons] = useState(false);
   const { size } = useContext(CartContext);
   return (
@@ -38,16 +39,17 @@ const Navbar = () => {
           </div>
         </div>
         <Link to="/login">
-          <div className="navbar_text navbar_signin hide_for_desktop"
-          >
-            <div style={{ fontSize: "14px" }}>Hello, Sign In{locationDetails?.state?.userName}</div>
+          <div className="navbar_text navbar_signin hide_for_desktop">
+            <div style={{ fontSize: "14px" }}>{userName ? `Hello, ${userName}` : 'Hello, Sign In'}</div>
             <div style={{ fontWeight: "bold" }}>Account & List</div>
           </div>
         </Link>
-        <div className="navbar_text navbar_returns hide_for_desktop">
-          <div style={{ fontSize: "14px" }}>Returns</div>
-          <div style={{ fontWeight: "bold" }}> & Order</div>
-        </div>
+        <Link to="/order">
+          <div className="navbar_text navbar_returns hide_for_desktop">
+            <div style={{ fontSize: "14px" }}>Returns</div>
+            <div style={{ fontWeight: "bold" }}> & Order</div>
+          </div>
+        </Link>
         <Link to="/checkout">
           <div className="navbar_text navbar_cart hide_for_desktop">
             <div className="cart_image" ></div>
@@ -58,7 +60,7 @@ const Navbar = () => {
         {/* for mobile */}
 
 
-        
+
         <div className="hamburger-menu">
           <a href="#" onClick={() => setShowMediaIcons(!showMediaIcons)}>
             <GiHamburgerMenu style={{ color: "white" }} />
@@ -67,11 +69,11 @@ const Navbar = () => {
 
         {/* <div className='hamburger_menu_mobile hide_for_mobile'> */}
         <div className={
-            showMediaIcons ? 'hamburger_menu_mobile' : 'hamburger_menu hide_for_mobile'
-          }>
+          showMediaIcons ? 'hamburger_menu_mobile' : 'hamburger_menu hide_for_mobile'
+        }>
           <Link to="/login">
             <div className='mobile_signIn'>
-              <div style={{ fontSize: "14px" }}>Hello, Sign In</div>
+              <div style={{ fontSize: "14px" }}>{userName ? `Hello, ${userName}` : 'Hello, Sign In'}</div>
               <div style={{ fontWeight: "bold" }}>Account & List</div>
             </div>
           </Link>
@@ -89,16 +91,18 @@ const Navbar = () => {
         </div>
       </div>
       <div className="navbar_footer">
-        <div className="navbar_footer_text">Best Seller</div>
-        <div className="navbar_footer_text">Mobile</div>
-        <div className="navbar_footer_text">Amazon Pay</div>
-        <div className="navbar_footer_text">Fashion</div>
-        <div className="navbar_footer_text">Electronics</div>
-        <div className="navbar_footer_text">Prime</div>
-        <div className="navbar_footer_text">New Release</div>
-        <div className="navbar_footer_text">Customer Service</div>
-        <div className="navbar_footer_text">Computers</div>
-        <div className="navbar_footer_text">Home & Kitchen</div>
+        <div className="navbar_footer_text tooltips">Best Seller<span className='tooltipstext'>Not Available</span></div>
+        <div className="navbar_footer_text tooltips">Mobile<span className='tooltipstext'>Not Available</span></div>
+        <div className="navbar_footer_text tooltips">Amazon Pay<span className='tooltipstext'>Not Available</span></div>
+        <div className="navbar_footer_text tooltips">Fashion<span className='tooltipstext'>Not Available</span></div>
+        <div className="navbar_footer_text tooltips">Electronics<span className='tooltipstext'>Not Available</span></div>
+        <div className="navbar_footer_text tooltips">Prime<span className='tooltipstext'>Not Available</span></div>
+        <div className="navbar_footer_text tooltips">New Release<span className='tooltipstext'>Not Available</span></div>
+        <div className="navbar_footer_text tooltips">Customer Service<span className='tooltipstext'>Not Available</span></div>
+        <div className="navbar_footer_text tooltips">Home & Kitchen<span className='tooltipstext'>Not Available</span></div>
+        <Link to='/display'>
+        <div className='navbar_footer_image'><img src='https://m.media-amazon.com/images/G/31/Events/img23/Aug23ART/SWM_400x39_Shop_now._CB601306814_.jpg'/></div>
+        </Link>
       </div>
     </div>
   )

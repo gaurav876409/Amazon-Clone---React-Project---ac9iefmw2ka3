@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import "./CheckOut.css";
 import { FaRupeeSign } from "react-icons/fa";
 
@@ -7,7 +7,7 @@ const CheckoutItems = (props) => {
 
     useEffect(() => {
         props.updateQuantity(props.index, quantity);
-      }, [quantity]);
+    }, [quantity]);
 
     const handleIncrement = () => {
         setQuantity((prevQuantity) => prevQuantity + 1);
@@ -32,12 +32,11 @@ const CheckoutItems = (props) => {
         }
     };
     return (
-        <div>
             <div className='checkoutItem_div'>
                 <div style={{ margin: "25px", width: "350px" }}>
                     <img className='checkout_image' src={props.value.image} />
                 </div>
-                <div style={{ marginTop: "20px" }}>
+                <div style={{ marginTop: "20px", width: "530px" }}>
                     <div style={{ fontSize: "20px" }} className="textgap">{props.value.title}</div>
                     <div style={{ fontWeight: "bold" }} className="textgap price">
                         <div className='react_icon'><FaRupeeSign /></div>
@@ -45,20 +44,21 @@ const CheckoutItems = (props) => {
                     </div>
                     <div className="textgap">In Stock</div>
                     <div className="quantity-control">
-                        <button onClick={handleDecrement} style={{border: "none", backgroundColor: "whitesmoke", marginBottom: "5px"}}>-</button>
-                        <input
-                            type="number"
-                            value={quantity}
-                            onChange={handleQuantityChange}
-                            onBlur={handleBlur}
-                            style={{width: "30px", border: "none"}}
-                        />
-                        <button onClick={handleIncrement} style={{border: "none", backgroundColor: "whitesmoke", marginBottom: "5px"}}>+</button>
+                        <button onClick={handleDecrement} className='checkOut_button'>-</button>
+                        <div className='checkOut_input'>
+                            <input
+                                type="number"
+                                value={quantity}
+                                onChange={handleQuantityChange}
+                                onBlur={handleBlur}
+                                style={{border: "none", width: "30px", padding: "6px", marginLeft: "9px"}}
+                            />
+                        </div>
+                        <button onClick={handleIncrement} className='checkOut_button'>+</button>
                     </div>
                     <button onClick={() => props.removeFromCart(props.index)} className='check_item_delete'>Delete</button>
                 </div>
             </div>
-        </div>
     )
 }
 

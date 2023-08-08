@@ -3,10 +3,16 @@ import "./Footer.css";
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
     return (
         <div className='footer_body'>
             <div className='footer_top'>
-                <h3>Back to top</h3>
+                <h3 onClick={scrollToTop}>Back to top</h3>
             </div>
             <div className='footer_middle'>
                 <div className='footer_middle_1'>
@@ -54,7 +60,7 @@ const Footer = () => {
                 </div>
                 <div className='footer_middle_2'>
                     <Link to="/">
-                        <div className='footer_logo'></div>
+                        <div className='footer_logo' onClick={scrollToTop}></div>
                     </Link>
                     <div className='footer_drop'>
                         <img className='footer_world_logo' src='https://static.vecteezy.com/system/resources/previews/000/357/012/original/vector-globe-icon.jpg' width={"20px"} />

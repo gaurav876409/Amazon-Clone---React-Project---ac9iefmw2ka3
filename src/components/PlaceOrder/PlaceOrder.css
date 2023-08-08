@@ -1,6 +1,7 @@
 .placeorder {
-    height: 567px;
+    /* height: 567px; */
     width: 95vw;
+    margin-bottom: 20px;
 }
 
 .placeorder_image {

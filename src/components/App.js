@@ -1,14 +1,14 @@
 import React from 'react'
 import '../styles/App.css';
-import Navbar from './NavBar/Navigation'
 import MainPage from './MainBody/MainPage';
 import DisplayContent from './DisplayContent/DisplayContent';
 import PlaceOrder from './PlaceOrder/PlaceOrder';
 import CheckOut from './Checkout/CheckOut';
+import Order from './Order/Order';
 import CartContextProvider from './CartContext';
 import LogIn from './NavBar/LogIn';
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
-// import Footer from './Footer/Footer';
+import Payment from './PaymentPage/Payment';
 import Layout from './Layout';
 
 
@@ -31,7 +31,9 @@ const App = () => {
        <Route path='/login' element={<LogIn/>}/>
        <Route path='/checkout' element={<Layout><CheckOut/></Layout>}/>
        <Route path='/display' element={<Layout><DisplayContent/></Layout>}/>
+       <Route path='/order' element={<Layout><Order/></Layout>}/>
        <Route path='/order/:id' element={<Layout><PlaceOrder/></Layout>}/>
+       <Route path='/payment' element={<Payment/>}/>
     </Routes>
     
     </CartContextProvider>

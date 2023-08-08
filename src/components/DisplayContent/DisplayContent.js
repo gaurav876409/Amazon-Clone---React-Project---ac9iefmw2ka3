@@ -33,7 +33,7 @@ const DisplayContent = () => {
     setFilteredProducts(filteredItems);
     if (
       !filterValues.men &&
-      !filterValues.jewelry &&
+      !filterValues.jewelery &&
       !filterValues.electronics &&
       !filterValues.women
     ) {
