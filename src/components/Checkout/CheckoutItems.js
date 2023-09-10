@@ -31,6 +31,7 @@ const CheckoutItems = (props) => {
             setQuantity(1);
         }
     };
+    // const totalItemPrice = props.value.price * quantity;
     return (
             <div className='checkoutItem_div'>
                 <div style={{ margin: "25px", width: "350px" }}>
@@ -57,6 +58,7 @@ const CheckoutItems = (props) => {
                         <button onClick={handleIncrement} className='checkOut_button'>+</button>
                     </div>
                     <button onClick={() => props.removeFromCart(props.index)} className='check_item_delete'>Delete</button>
+                    {/* <div>{totalItemPrice}</div> */}
                 </div>
             </div>
     )

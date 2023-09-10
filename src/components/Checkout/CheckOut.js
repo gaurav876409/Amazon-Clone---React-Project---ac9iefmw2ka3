@@ -33,7 +33,7 @@ const CheckOut = () => {
                             {
                                 item.length > 0 ?
                                     item.map((value, index) => (
-                                        <CheckoutItems value={value} index={index} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />
+                                        <CheckoutItems value={value} index={index} removeFromCart={removeFromCart} updateQuantity={updateQuantity}/>
                                     ))
                                     : <div style={{ height: "100vh", margin: "30px" }}> Please buy something</div>
                             }

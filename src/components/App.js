@@ -18,7 +18,7 @@ const App = () => {
     <>
     
     <Router basename='/'>
-    <div>
+    {/* <div> */}
     <CartContextProvider>
     
     <Routes> 
@@ -37,7 +37,7 @@ const App = () => {
     </Routes>
     
     </CartContextProvider>
-    </div>
+    {/* </div> */}
     </Router>
     </>
   )

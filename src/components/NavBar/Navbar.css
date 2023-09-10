@@ -1,7 +1,8 @@
 .navbar_container {
     width: 100%;
+    /* min-width: 1366px; */
     position: relative;
-    
+
 }
 
 .navbar_component {
@@ -48,6 +49,10 @@
     width: 45vw;
     height: 38px;
     margin-top: 8px;
+}
+
+.navbar_searchbox:focus {
+    outline: none;
 }
 
 .nav_dropdown {
@@ -136,25 +141,29 @@
 .hide_for_mobile {
     display: none;
 }
-.hamburger_menu_mobile{
+
+.hamburger_menu_mobile {
     display: none;
 }
-.navbar_footer_image{
+
+.navbar_footer_image {
     height: 32px;
     width: 392px;
     overflow: hidden;
     margin-top: -3px;
     margin-left: 111px;
 }
+
 .tooltips {
     position: relative;
     display: inline-block;
 }
+
 .tooltips .tooltipstext {
     visibility: hidden;
     width: 100px;
     background-color: #22303E;
-    color: #fff; 
+    color: #fff;
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
@@ -165,6 +174,7 @@
     cursor: pointer;
     text-align: center;
 }
+
 .tooltips .tooltipstext::after {
     content: "";
     position: absolute;
@@ -175,12 +185,35 @@
     border-style: solid;
     border-color: transparent transparent #C7511F transparent;
 }
+
 .tooltips:hover .tooltipstext {
     visibility: visible;
 }
-.tooltips:hover{
+
+.tooltips:hover {
     color: #C7511F;
     border-bottom: 1px solid #C7511F;
+}
+
+.navbar_search_list {
+    max-height: 120px;
+    overflow-y: auto;
+    max-width: 45.5vw;
+    background-color: #fff;
+}
+
+.navbar_search_list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar_search_list ul li {
+    padding: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: black;
 }
 
 /* media query for tab */
@@ -245,29 +278,34 @@
         padding: 0 40px;
         gap: 126px;
     }
-    .hamburger_menu_toggle{
+
+    .hamburger_menu_toggle {
         display: none;
     }
-    .mobile_signIn{
+
+    .mobile_signIn {
         width: 111px;
         color: white;
         margin-top: 10px;
     }
-    .mobile_order{
+
+    .mobile_order {
         width: 111px;
         color: white;
         position: relative;
         right: 50px;
         top: 10px;
     }
-    .mobile_cart{
+
+    .mobile_cart {
         display: flex;
         width: 150px;
         position: relative;
         right: 80px;
         top: 10px;
     }
-    .navbar_text_cart{
+
+    .navbar_text_cart {
         color: white;
     }
 }

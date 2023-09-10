@@ -39,10 +39,12 @@
     position: relative;
     display: inline-block;
     color: #007185;
+    border-bottom: 1px solid transparent;
 }
 .tooltip:hover{
     color: #C7511F;
-    border-bottom: 1px solid #C7511F;
+    /* border-bottom: 1px solid #C7511F; */
+    border-color: #C7511F;
 }
 .tooltip .tooltiptext {
     visibility: hidden;

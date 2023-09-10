@@ -1,13 +1,46 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { CartContext } from '../CartContext';
 import { Link } from 'react-router-dom';
 import "./Navbar.css"
 import { GiHamburgerMenu } from "react-icons/gi";
-// import { useLocation } from "react-router";
+import axios from 'axios';
 
 const Navbar = () => {
+  const [input, setInput] = useState('');
+  const [results, setResults] = useState([]);
   const userName = localStorage.getItem('userName');
-  // const locationDetails = useLocation();
+  useEffect(() => {
+    const apiUrl = 'https://content.newtonschool.co/v1/pr/63b6c911af4f30335b4b3b89/products';
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(apiUrl);
+        const data = response.data;
+        const matchingItems = filterItems(data);
+        setResults(matchingItems);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    const filterItems = (data) => {
+      return data.filter((item) => {
+        const itemText = item.title.toLowerCase();
+        const searchText = input.toLowerCase();
+        return itemText.includes(searchText);
+      });
+    };
+    if (input.trim() !== '') {
+      fetchData();
+    } else {
+      setResults([]);
+    }
+  }, [input]);
+
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+  };
+  const handleListItemClick = () => {
+    setInput('');
+  };
   const [showMediaIcons, setShowMediaIcons] = useState(false);
   const { size } = useContext(CartContext);
   return (
@@ -32,7 +65,18 @@ const Navbar = () => {
             </select>
           </div>
           <div>
-            <input type="text" className="navbar_searchbox" placeholder='Search Amazon.in' />
+            <input type="text" className="navbar_searchbox" placeholder='Search Amazon.in' value={input}
+              onChange={handleInputChange} />
+            <div className='navbar_search_list'>
+              <ul>
+              {results.length > 0 &&
+          results.slice(0, 10).map((item) => (
+            <Link to={`/order/` + item.id} key={item.id} onClick={handleListItemClick}>
+              <li key={item.id}>{item.title}</li>
+            </Link>
+          ))}
+              </ul>
+            </div>
           </div>
           <div className="navbar_seaarchboxdiv">
             <div className="navbar_searchicon" />
@@ -58,8 +102,6 @@ const Navbar = () => {
           </div>
         </Link>
         {/* for mobile */}
-
-
 
         <div className="hamburger-menu">
           <a href="#" onClick={() => setShowMediaIcons(!showMediaIcons)}>
@@ -101,7 +143,7 @@ const Navbar = () => {
         <div className="navbar_footer_text tooltips">Customer Service<span className='tooltipstext'>Not Available</span></div>
         <div className="navbar_footer_text tooltips">Home & Kitchen<span className='tooltipstext'>Not Available</span></div>
         <Link to='/display'>
-        <div className='navbar_footer_image'><img src='https://m.media-amazon.com/images/G/31/Events/img23/Aug23ART/SWM_400x39_Shop_now._CB601306814_.jpg'/></div>
+          <div className='navbar_footer_image'><img src='https://m.media-amazon.com/images/G/31/Events/img23/Aug23ART/SWM_400x39_Shop_now._CB601306814_.jpg' /></div>
         </Link>
       </div>
     </div>

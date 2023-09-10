@@ -26,7 +26,7 @@ const PlaceOrder = (props) => {
             .catch((error) => {
                 console.log("showing error", error)
             })
-    }, []);
+    }, [id]);
     if (!productDetails) {
         return <div>Loading...</div>;
     }
