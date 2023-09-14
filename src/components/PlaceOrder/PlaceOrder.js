@@ -66,12 +66,13 @@ const PlaceOrder = (props) => {
                 <Grid item xs={12} sm={3}>
                     <Paper variant="outlined" className="placeorder_order">
                         <div className='placeorder_flex'>
-                                <div><strong>Without Exchange</strong></div>
+                                <div><strong>Without Exchange</strong>
                                 <div>50,999</div>
                                 <div style={{ marginTop: "10px" }}><strong>Add an Accessory</strong></div>
                                 <div>
                                     <label><input type="checkbox" ></input>Apple Airpods</label><br></br>
                                     <label><input type="checkbox" ></input>Apple 20W USB Power Adapter</label>
+                                </div>
                                 </div>
                             <div className='placeorder_mobile'>
                                 <button className="placeorder_button addtocart" onClick={addTOCart}>Add to Cart</button>

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import "./checkOut.css";
+import "./CheckOut.css";
 import Grid from '@mui/material/Grid';
 import { CartContext } from '../CartContext';
 import CheckoutItems from './CheckoutItems';
@@ -11,7 +11,6 @@ const CheckOut = () => {
     const [size, setSize] = useState(0);
 
     useEffect(() => {
-        // Calculate the total quantity whenever 'item' changes
         const totalQuantity = item.reduce((total, currentItem) => total + currentItem.quantity, 0);
         setSize(totalQuantity);
     }, [item]);

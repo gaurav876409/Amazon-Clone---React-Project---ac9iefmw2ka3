@@ -34,10 +34,10 @@ const CheckoutItems = (props) => {
     // const totalItemPrice = props.value.price * quantity;
     return (
             <div className='checkoutItem_div'>
-                <div style={{ margin: "25px", width: "350px" }}>
+                <div className='checkoutItem_div_image'>
                     <img className='checkout_image' src={props.value.image} />
                 </div>
-                <div style={{ marginTop: "20px", width: "530px" }}>
+                <div className='checkoutItem_div_text'>
                     <div style={{ fontSize: "20px" }} className="textgap">{props.value.title}</div>
                     <div style={{ fontWeight: "bold" }} className="textgap price">
                         <div className='react_icon'><FaRupeeSign /></div>

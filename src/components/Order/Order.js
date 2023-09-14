@@ -25,7 +25,7 @@ const Order = () => {
     return (
         <div className='order_container'>
             <h1>Your Orders</h1>
-            <div>
+            {/* <div> */}
                 <div className='order_header'>
                     <div className='order_placed'>
                         <span className='order_placed_1'>ORDER PLACED</span>
@@ -73,7 +73,7 @@ const Order = () => {
                         ))}
                     </div>
                 </div>
-            </div>
+            {/* </div> */}
         </div>
     )
 }

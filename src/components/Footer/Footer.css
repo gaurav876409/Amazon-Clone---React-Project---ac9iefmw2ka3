@@ -151,4 +151,16 @@
     .footer_middle_3{
         height: 100px;
     }
+    .footer_body{
+        width: 100%;
+    }
+    .footer_part_mobile{
+        display: none;
+    }
+    .footer_middle_1{
+        gap: 30px;
+    }
+    .footer_middle_3_mob{
+        display: none;
+    }
 }

@@ -203,3 +203,24 @@
     filter: blur(2px); 
     /* pointer-events: none; */
   }
+
+
+@media screen and (max-width: 480px) {
+    .review_big_body {
+        width: 100%;
+    }
+    .review_sprite{
+        margin-left: 5px;
+    }
+    .delivery_products{
+        margin-left: 5px;
+    }
+    .placeOrder{
+        margin-left: 5px;
+    }
+    .payment_success_message{
+        width: 280px;
+        top: 12%;
+        left: 12%;
+    }
+}

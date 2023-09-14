@@ -16,11 +16,8 @@ const App = () => {
 
   return (
     <>
-    
     <Router basename='/'>
-    {/* <div> */}
     <CartContextProvider>
-    
     <Routes> 
        {/* <Route path="/" element={[<Navbar/>, <MainPage />, <Footer/>]}/>
        <Route path="/login" element={<LogIn />}/>
@@ -35,9 +32,7 @@ const App = () => {
        <Route path='/order/:id' element={<Layout><PlaceOrder/></Layout>}/>
        <Route path='/payment' element={<Payment/>}/>
     </Routes>
-    
     </CartContextProvider>
-    {/* </div> */}
     </Router>
     </>
   )

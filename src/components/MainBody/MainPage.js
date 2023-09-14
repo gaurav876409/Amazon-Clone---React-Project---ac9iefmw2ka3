@@ -79,7 +79,7 @@ const MainPage = () => {
   }, []);
   return (
     <div className="mainpage">
-    <div style={{ paddingTop: "260px", display: "flex", flexWrap: "wrap" }}>
+    <div className='mainpage_main'>
       {list.map((value, index) => (
         value.type === "one" ? (
           <Link key={index} to="/display">

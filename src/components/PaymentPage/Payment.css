@@ -331,3 +331,22 @@ td {
     width: 40vw;
     object-fit: contain;
 }
+
+@media screen and (max-width: 480px) {
+    .shipping_container{
+        flex-direction: column;
+    }
+    .billing_summary{
+        display: none;
+    }
+    .sprite_image{
+        width: 155px;
+        margin-bottom: 30px;
+    }
+    .amazon_balance_content{
+        margin-left: 10px;
+    }
+    .amazon_balance_input{
+        width: 100px;
+    }
+}

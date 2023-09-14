@@ -119,10 +119,12 @@ const Navbar = () => {
               <div style={{ fontWeight: "bold" }}>Account & List</div>
             </div>
           </Link>
+          <Link to="/order">
           <div className='mobile_order'>
             <div style={{ fontSize: "14px" }}>Returns</div>
             <div style={{ fontWeight: "bold" }}> & Order</div>
           </div>
+          </Link>
           <Link to="/checkout">
             <div className='mobile_cart'>
               <div className="cart_image" ></div>

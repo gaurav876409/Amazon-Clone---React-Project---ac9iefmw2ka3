@@ -33,7 +33,7 @@ const Footer = () => {
                             <li className='list'>Twitter</li>
                         </ul>
                     </div>
-                    <div className='footer_part'>
+                    <div className='footer_part footer_part_mobile'>
                         <h2>Make Money with Us</h2>
                         <ul>
                             <li className='list'>Sell on Amazon</li>
@@ -86,13 +86,13 @@ const Footer = () => {
                         <li>Japan</li>
                         <li>Mexico</li>
                         <li>Netherlands</li>
-                        <li>Poland</li>
-                        <li>Singapore</li>
-                        <li>Spain</li>
-                        <li>Turkey</li>
-                        <li>United Arab Emirates</li>
-                        <li>United Kingdom</li>
-                        <li>United States</li>
+                        <li className='footer_middle_3_mob'>Poland</li>
+                        <li className='footer_middle_3_mob'>Singapore</li>
+                        <li className='footer_middle_3_mob'>Spain</li>
+                        <li className='footer_middle_3_mob'>Turkey</li>
+                        <li className='footer_middle_3_mob'>United Arab Emirates</li>
+                        <li className='footer_middle_3_mob'>United Kingdom</li>
+                        <li className='footer_middle_3_mob'>United States</li>
                     </ul>
                 </div>
             </div>
