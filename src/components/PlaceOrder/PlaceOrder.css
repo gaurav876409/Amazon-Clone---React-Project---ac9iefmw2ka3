@@ -57,6 +57,7 @@
 @media screen and (max-width: 480px) {
     .placeorder{
         margin-top: 60px;
+        width: 93%;
     }
 
     .placeholder_description{
@@ -69,5 +70,16 @@
     .placeorder_flex{
         display: flex;
     }
+}
 
-} 
+@media screen and (min-width: 480px) and (max-width: 1024px) {
+    .placeorder_image{
+        width: 250px;
+        height: 200px;
+        left: 5%;
+    }
+    .placeorder{
+        width: 82vw;
+    }
+
+}

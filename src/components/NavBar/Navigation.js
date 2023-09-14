@@ -142,8 +142,8 @@ const Navbar = () => {
         <div className="navbar_footer_text tooltips">Electronics<span className='tooltipstext'>Not Available</span></div>
         <div className="navbar_footer_text tooltips">Prime<span className='tooltipstext'>Not Available</span></div>
         <div className="navbar_footer_text tooltips">New Release<span className='tooltipstext'>Not Available</span></div>
-        <div className="navbar_footer_text tooltips">Customer Service<span className='tooltipstext'>Not Available</span></div>
-        <div className="navbar_footer_text tooltips">Home & Kitchen<span className='tooltipstext'>Not Available</span></div>
+        <div className="navbar_footer_text tooltips big_hide">Customer Service<span className='tooltipstext'>Not Available</span></div>
+        <div className="navbar_footer_text tooltips big_hide">Home & Kitchen<span className='tooltipstext'>Not Available</span></div>
         <Link to='/display'>
           <div className='navbar_footer_image'><img src='https://m.media-amazon.com/images/G/31/Events/img23/Aug23ART/SWM_400x39_Shop_now._CB601306814_.jpg' /></div>
         </Link>

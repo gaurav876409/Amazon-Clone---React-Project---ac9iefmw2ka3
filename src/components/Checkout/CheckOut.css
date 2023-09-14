@@ -134,3 +134,14 @@
     }
 
 }
+
+@media screen and (min-width: 480px) and (max-width: 1024px) {
+    .checkout_container{
+        width: 90vw;
+    }
+    .checkout_total{
+        width: 350px;
+        margin-left: 25px;
+        margin-bottom: 25px;
+    }
+}

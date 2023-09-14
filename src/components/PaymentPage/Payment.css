@@ -350,3 +350,8 @@ td {
         width: 100px;
     }
 }
+@media screen and (min-width: 480px) and (max-width: 1024px) {
+    .billing_summary{
+        display: none;
+    }
+}
