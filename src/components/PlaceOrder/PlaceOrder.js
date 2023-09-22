@@ -6,14 +6,23 @@ import './PlaceOrder.css';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../CartContext';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const PlaceOrder = (props) => {
     const { item, size, increment } = useContext(CartContext);
     const [productDetails, setProductDetails] = useState([]);
     let { id } = useParams();
-
+    const navigate = useNavigate();
     const addTOCart = function () {
-        increment(productDetails);
+        const isUser = localStorage.getItem('userName');
+        if(isUser){
+            increment(productDetails);
+            navigate('/payment')
+        }else{
+            navigate('/login');
+        }
+
     }
     useEffect(() => {
         axios.get("https://content.newtonschool.co/v1/pr/63b6c911af4f30335b4b3b89/products")
@@ -76,9 +85,9 @@ const PlaceOrder = (props) => {
                                 </div>
                             <div className='placeorder_mobile'>
                                 <button className="placeorder_button addtocart" onClick={addTOCart}>Add to Cart</button>
-                                <Link to="/checkout">
-                                    <button className="placeorder_button buynow" key="buynow">Buy Now</button>
-                                </Link>
+                                {/* <Link to="/payment"> */}
+                                    <button className="placeorder_button buynow" key="buynow" onClick={addTOCart}>Buy Now</button>
+                                {/* </Link> */}
                             </div>
                         </div>
                     </Paper>

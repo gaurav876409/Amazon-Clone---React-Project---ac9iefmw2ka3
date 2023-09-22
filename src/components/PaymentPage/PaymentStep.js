@@ -7,15 +7,16 @@ import Modal from 'react-modal';
 import CreditCardInput from 'react-credit-card-input';
 import { CartContext } from '../CartContext';
 
-const PaymentStep = () => {
-    const [selectedMethod, setSelectedMethod] = useState();
-    const handlePaymentMethodChange = (e) => {
-        setSelectedMethod(e.target.value)
-    }
+const PaymentStep = (props) => {
+    // const [selectedMethod, setSelectedMethod] = useState();
+    // const handlePaymentMethodChange = (e) => {
+    //     props.setSelectedMethod(e.target.value)
+    // }
     useEffect(() => {
-        const paymentString = JSON.stringify(selectedMethod);
+        const paymentString = JSON.stringify(props.selectedMethod);
         localStorage.setItem('select', paymentString);
-      }, [selectedMethod]);
+      }, [props.selectedMethod]);
+
     const { item, increment, removeFromCart, updateQuantity } = useContext(CartContext);
 
     const [size, setSize] = useState(0);
@@ -117,7 +118,7 @@ const PaymentStep = () => {
                         }}
                     />
                     <div className='amazon_radio_button'>
-                        <div><input type="radio" name="payment" value="Credit or debit card" onClick={openCardModal} onChange={handlePaymentMethodChange}/>
+                        <div><input type="radio" name="payment" value="Credit or debit card" onClick={openCardModal} onChange={props.handlePaymentMethodChange}/>
                             <label for="credit" className='radio_text'>Credit or debit card</label>
                             <Modal
                                 isOpen={isCardModalOpen}
@@ -167,7 +168,7 @@ const PaymentStep = () => {
                             <span className='sprite_image6'></span>
                             <span className='sprite_image7'></span>
                         </div>
-                        <div className='radio_button_gap'><input type="radio" name="payment" value="Net Banking" onClick={openNetBankingModal} onChange={handlePaymentMethodChange}/>
+                        <div className='radio_button_gap'><input type="radio" name="payment" value="Net Banking" onClick={openNetBankingModal} onChange={props.handlePaymentMethodChange}/>
                             <label for="credit" className='radio_text'>Net Banking</label>
                             <Modal
                                 isOpen={isNetBankingModalOpen}
@@ -197,7 +198,7 @@ const PaymentStep = () => {
                                 <div className='button_flex_center'><button className='use_payment_method' onClick={closeModals}>Use this payment method</button></div>
                             </Modal>
                         </div>
-                        <div className='radio_button_gap'><input type="radio" name="payment" value="Other UPI Apps" onClick={openOtherUPIModal} onChange={handlePaymentMethodChange}/>
+                        <div className='radio_button_gap'><input type="radio" name="payment" value="Other UPI Apps" onClick={openOtherUPIModal} onChange={props.handlePaymentMethodChange}/>
                             <label for="credit" className='radio_text'>Other UPI Apps</label>
                             <Modal
                                 isOpen={isOtherUPIModalOpen}
@@ -218,7 +219,7 @@ const PaymentStep = () => {
                                 <div className='button_flex_center'><button className='use_payment_method' onClick={closeModals}>Use this payment method</button></div>
                             </Modal>
                         </div>
-                        <div className='radio_button_gap'><input type="radio" name="payment" value="EMI" onClick={openEMIModal} onChange={handlePaymentMethodChange}/>
+                        <div className='radio_button_gap'><input type="radio" name="payment" value="EMI" onClick={openEMIModal} onChange={props.handlePaymentMethodChange}/>
                             <label for="credit" className='radio_text'>EMI</label>
                             <Modal
                                 isOpen={isEMIModalOpen}
@@ -259,7 +260,7 @@ const PaymentStep = () => {
                                 <div className='button_flex_center'><button className='use_payment_method' onClick={closeModals}>Use this payment method</button></div>
                             </Modal>
                         </div>
-                        <div className='radio_button_gap'><input type="radio" name="payment" value="Cash/Pay on Delivery" onClick={openCODModal} onChange={handlePaymentMethodChange}/>
+                        <div className='radio_button_gap'><input type="radio" name="payment" value="Cash/Pay on Delivery" onClick={openCODModal} onChange={props.handlePaymentMethodChange}/>
                             <label for="credit" className='radio_text'>Cash/Pay on Delivery</label>
                             <Modal
                                 isOpen={isCODModalOpen}

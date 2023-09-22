@@ -9,9 +9,14 @@ import ShippingStep from './ShippingStep';
 import PaymentStep from './PaymentStep';
 import ReviewStep from './ReviewStep';
 import { Link } from 'react-router-dom';
-
 const Payment = () => {
-    // const [activeStep, setActiveStep] = useState(0);
+    const [selectedMethod, setSelectedMethod] = useState();
+    const [isdisable, setIsdisable] = useState(true);
+    const handlePaymentMethodChange = (e) => {
+        setIsdisable(false)
+        setSelectedMethod(e.target.value)
+    }
+
     const [activeStep, setActiveStep] = useState(() => {
         const savedActiveStep = localStorage.getItem('activeStep');
         return savedActiveStep ? parseInt(savedActiveStep, 10) : 0;
@@ -30,9 +35,6 @@ const Payment = () => {
         };
       });
 
-    // const handleNext = () => {
-    //     setActiveStep((prevStep) => prevStep + 1);
-    // };
     const handleNext = () => {
         setActiveStep((prevStep) => {
           const nextStep = prevStep + 1;
@@ -41,9 +43,6 @@ const Payment = () => {
         });
       };
 
-    // const handleBack = () => {
-    //     setActiveStep((prevStep) => prevStep - 1);
-    // };
     const handleBack = () => {
         setActiveStep((prevStep) => {
           const nextStep = prevStep - 1;
@@ -60,7 +59,7 @@ const Payment = () => {
                     setFormData={setFormData}
                 />;
             case 1:
-                return <PaymentStep/>;
+                return <PaymentStep selectedMethod={selectedMethod} setSelectedMethod={setSelectedMethod} handlePaymentMethodChange={handlePaymentMethodChange}/>;
             case 2:
                 return <ReviewStep formData={formData} setActiveStep={setActiveStep} activeStep={activeStep}/>;
             default:
@@ -71,7 +70,6 @@ const Payment = () => {
     useEffect(() => {
         localStorage.setItem('activeStep', activeStep);
       }, [activeStep]);
-
 
     return (
         <div className='payment_body'>
@@ -106,7 +104,7 @@ const Payment = () => {
                     </Button>
                 </div>
                 <div className='next_button'>
-                    <Button disabled={activeStep === 2} variant="contained" color="primary" onClick={handleNext}>
+                    <Button disabled={isdisable && activeStep !== 0} variant="contained" color="primary" onClick={handleNext}>
                         Next
                     </Button>
                 </div>

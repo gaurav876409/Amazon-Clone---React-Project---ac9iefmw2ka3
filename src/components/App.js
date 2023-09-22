@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import '../styles/App.css';
 import MainPage from './MainBody/MainPage';
 import DisplayContent from './DisplayContent/DisplayContent';
@@ -10,10 +10,13 @@ import LogIn from './NavBar/LogIn';
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import Payment from './PaymentPage/Payment';
 import Layout from './Layout';
+import Electronics from './Navfooterdata/Electronics';
+import Jewelery from './Navfooterdata/Jewelery';
+import Mens from './Navfooterdata/Mens';
+import Womens from './Navfooterdata/Womens';
 
 
 const App = () => {
-
   return (
     <>
     <Router basename='/'>
@@ -31,6 +34,10 @@ const App = () => {
        <Route path='/order' element={<Layout><Order/></Layout>}/>
        <Route path='/order/:id' element={<Layout><PlaceOrder/></Layout>}/>
        <Route path='/payment' element={<Payment/>}/>
+       <Route path='/electronics' element={<Layout><Electronics/></Layout>}/>
+       <Route path='/jewelery' element={<Layout><Jewelery/></Layout>}/>
+       <Route path='/mens' element={<Layout><Mens/></Layout>}/>
+       <Route path='/womens' element={<Layout><Womens/></Layout>}/>
     </Routes>
     </CartContextProvider>
     </Router>

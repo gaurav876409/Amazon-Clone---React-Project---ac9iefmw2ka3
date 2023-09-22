@@ -43,6 +43,7 @@ const Navbar = () => {
   };
   const [showMediaIcons, setShowMediaIcons] = useState(false);
   const { size } = useContext(CartContext);
+
   return (
     <div className='navbar_container'>
       <div className='navbar_component'>
@@ -69,12 +70,12 @@ const Navbar = () => {
               onChange={handleInputChange} />
             <div className='navbar_search_list'>
               <ul>
-              {results.length > 0 &&
-          results.slice(0, 10).map((item) => (
-            <Link to={`/order/` + item.id} key={item.id} onClick={handleListItemClick}>
-              <li key={item.id}>{item.title}</li>
-            </Link>
-          ))}
+                {results.length > 0 &&
+                  results.slice(0, 10).map((item) => (
+                    <Link to={`/order/` + item.id} key={item.id} onClick={handleListItemClick}>
+                      <li key={item.id}>{item.title}</li>
+                    </Link>
+                  ))}
               </ul>
             </div>
           </div>
@@ -120,10 +121,10 @@ const Navbar = () => {
             </div>
           </Link>
           <Link to="/order">
-          <div className='mobile_order'>
-            <div style={{ fontSize: "14px" }}>Returns</div>
-            <div style={{ fontWeight: "bold" }}> & Order</div>
-          </div>
+            <div className='mobile_order'>
+              <div style={{ fontSize: "14px" }}>Returns</div>
+              <div style={{ fontWeight: "bold" }}> & Order</div>
+            </div>
           </Link>
           <Link to="/checkout">
             <div className='mobile_cart'>
@@ -135,15 +136,28 @@ const Navbar = () => {
         </div>
       </div>
       <div className="navbar_footer">
-        <div className="navbar_footer_text tooltips">Best Seller<span className='tooltipstext'>Not Available</span></div>
-        <div className="navbar_footer_text tooltips">Mobile<span className='tooltipstext'>Not Available</span></div>
-        <div className="navbar_footer_text tooltips">Amazon Pay<span className='tooltipstext'>Not Available</span></div>
-        <div className="navbar_footer_text tooltips">Fashion<span className='tooltipstext'>Not Available</span></div>
-        <div className="navbar_footer_text tooltips">Electronics<span className='tooltipstext'>Not Available</span></div>
-        <div className="navbar_footer_text tooltips">Prime<span className='tooltipstext'>Not Available</span></div>
-        <div className="navbar_footer_text tooltips">New Release<span className='tooltipstext'>Not Available</span></div>
-        <div className="navbar_footer_text tooltips big_hide">Customer Service<span className='tooltipstext'>Not Available</span></div>
-        <div className="navbar_footer_text tooltips big_hide">Home & Kitchen<span className='tooltipstext'>Not Available</span></div>
+        <div className='navbar_footer_body'>
+          <Link to='/mens'>
+            <div className='navbar_footer_text'>
+              men's clothing
+            </div>
+          </Link>
+          <Link to='/electronics'>
+            <div className={`navbar_footer_text`}>
+              electronics
+            </div>
+          </Link>
+          <Link to='/womens'>
+            <div className={`navbar_footer_text`}>
+              women's clothing
+            </div>
+          </Link>
+          <Link to='/jewelery'>
+            <div className={`navbar_footer_text`}>
+              jewelery
+            </div>
+          </Link>
+        </div>
         <Link to='/display'>
           <div className='navbar_footer_image'><img src='https://m.media-amazon.com/images/G/31/Events/img23/Aug23ART/SWM_400x39_Shop_now._CB601306814_.jpg' /></div>
         </Link>

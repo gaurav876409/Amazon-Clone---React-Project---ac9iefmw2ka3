@@ -126,7 +126,12 @@
     color: white;
     display: flex;
     margin-top: 60px;
-    /* white-space: nowrap; */
+    justify-content: space-between;
+}
+.navbar_footer_body{
+    width: 60%;
+    display: flex;
+    color: white;
 }
 
 .navbar_footer_text {
@@ -134,6 +139,7 @@
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    color: white;
 }
 
 .hamburger-menu {
@@ -154,47 +160,6 @@
     overflow: hidden;
     margin-top: -3px;
     margin-left: 111px;
-}
-
-.tooltips {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltips .tooltipstext {
-    visibility: hidden;
-    width: 100px;
-    background-color: #22303E;
-    color: #fff;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    top: 150%;
-    left: 50%;
-    margin-left: -60px;
-    cursor: pointer;
-    text-align: center;
-}
-
-.tooltips .tooltipstext::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 10px;
-    border-style: solid;
-    border-color: transparent transparent #C7511F transparent;
-}
-
-.tooltips:hover .tooltipstext {
-    visibility: visible;
-}
-
-.tooltips:hover {
-    color: #C7511F;
-    border-bottom: 1px solid #C7511F;
 }
 
 .navbar_search_list {
@@ -218,21 +183,6 @@
     color: black;
 }
 
-/* media query for tab */
-/* @media screen and (max-width: 820px) {
-    .navbar_searchbox {
-        width: 25vw;
-    }
-
-    .navbar_component {
-        width: 100vw;
-    }
-
-    .navbar_footer_text {
-        font-size: 12px;
-        margin: 5px 5px;
-    }
-} */
 
 /* media query for phone */
 @media screen and (max-width: 480px) {
@@ -316,9 +266,6 @@
 
 @media screen and (min-width: 480px) and (max-width: 1024px) {
     .navbar_footer_image{
-        display: none;
-    }
-    .big_hide{
         display: none;
     }
     .navbar_searchbox{
