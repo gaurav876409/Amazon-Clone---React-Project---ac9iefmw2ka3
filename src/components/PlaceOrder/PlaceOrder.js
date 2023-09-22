@@ -14,7 +14,10 @@ const PlaceOrder = (props) => {
     const [productDetails, setProductDetails] = useState([]);
     let { id } = useParams();
     const navigate = useNavigate();
-    const addTOCart = function () {
+    const addTOCart = function(){
+        increment(productDetails);
+    }
+    const buyNow = function () {
         const isUser = localStorage.getItem('userName');
         if(isUser){
             increment(productDetails);
@@ -86,7 +89,7 @@ const PlaceOrder = (props) => {
                             <div className='placeorder_mobile'>
                                 <button className="placeorder_button addtocart" onClick={addTOCart}>Add to Cart</button>
                                 {/* <Link to="/payment"> */}
-                                    <button className="placeorder_button buynow" key="buynow" onClick={addTOCart}>Buy Now</button>
+                                    <button className="placeorder_button buynow" key="buynow" onClick={buyNow}>Buy Now</button>
                                 {/* </Link> */}
                             </div>
                         </div>
