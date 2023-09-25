@@ -82,6 +82,7 @@
 .navbar_text {
     color: white;
     margin-top: 13px;
+    cursor: pointer;
 }
 
 .cart_image {

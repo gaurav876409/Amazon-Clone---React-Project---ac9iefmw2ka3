@@ -99,21 +99,29 @@ const Navbar = () => {
             <div className="navbar_searchicon" />
           </div>
         </div>
-        <Link to="/login">
-          <div className="navbar_text navbar_signin hide_for_desktop" onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}>
-            <div style={{ fontSize: "14px" }}>{userName ? `Hello, ${userName}` : 'Hello, Sign In'}</div>
-            <div style={{ fontWeight: "bold" }}>Account & List</div>
-          </div>
-        </Link>
+        <div className="navbar_text navbar_signin hide_for_desktop" onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}>
+          <div style={{ fontSize: "14px" }}>{userName ? `Hello, ${userName}` : 'Hello, Sign In'}</div>
+          <div style={{ fontWeight: "bold" }}>Account & List</div>
+        </div>
         {userName && showLogoutDropdown && (
           <div className="navbar_logout_dropdown" onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}>
+            onMouseLeave={handleMouseLeave}>
             <div className="navbar_logout_item" onClick={handleLogout}>
               Logout
             </div>
           </div>
         )}
+          <Link to="/login">
+        {!userName && showLogoutDropdown && (
+            <div className="navbar_logout_dropdown" onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}>
+              <div className="navbar_logout_item" onClick={handleLogout}>
+                Login
+              </div>
+            </div>
+        )}
+        </Link>
         <Link to="/order">
           <div className="navbar_text navbar_returns hide_for_desktop">
             <div style={{ fontSize: "14px" }}>Returns</div>

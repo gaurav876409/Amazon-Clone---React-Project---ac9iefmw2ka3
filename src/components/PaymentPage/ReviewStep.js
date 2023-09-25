@@ -4,6 +4,8 @@ import { BiRupee } from 'react-icons/bi';
 import { LiaRupeeSignSolid } from 'react-icons/lia'
 import { CartContext } from '../CartContext';
 import { Link } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 const ReviewStep = ({ formData, setActiveStep, activeStep }) => {
   const handlePrevious = () => {
     const prevStep = Math.max(activeStep - 1, 0); 
@@ -16,15 +18,26 @@ const ReviewStep = ({ formData, setActiveStep, activeStep }) => {
     localStorage.setItem('activeStep', prevStep);
   };
   const [visible, setVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const popUp = () => {
-    setVisible(!visible);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false); // Stop loading
+      // setIsPaymentSuccess(true); 
+      setVisible(!visible);
+    }, 5000);
   }
   const scrollToTop = () => {
+    setIsLoading(true);
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-    setVisible(!visible);
+    setTimeout(() => {
+      setIsLoading(false); // Stop loading
+      // setIsPaymentSuccess(true); 
+      setVisible(!visible);
+    }, 5000);
   };
   const { item, increment, removeFromCart, updateQuantity } = useContext(CartContext);
 
@@ -237,6 +250,22 @@ const ReviewStep = ({ formData, setActiveStep, activeStep }) => {
           </Link>
         </div>
       )}
+      {isLoading && (
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.7)', 
+          zIndex: 9999,
+        }}>
+          <CircularProgress />
+        </Box>
+        )}
     </>
   )
 };
