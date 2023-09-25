@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 import "./Navbar.css"
 import { GiHamburgerMenu } from "react-icons/gi";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [input, setInput] = useState('');
   const [results, setResults] = useState([]);
+  const [showLogoutDropdown, setShowLogoutDropdown] = useState(false)
   const userName = localStorage.getItem('userName');
   useEffect(() => {
     const apiUrl = 'https://content.newtonschool.co/v1/pr/63b6c911af4f30335b4b3b89/products';
@@ -43,6 +46,19 @@ const Navbar = () => {
   };
   const [showMediaIcons, setShowMediaIcons] = useState(false);
   const { size } = useContext(CartContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem('userName');
+    navigate('/login')
+  };
+
+  const handleMouseEnter = () => {
+    setShowLogoutDropdown(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowLogoutDropdown(false);
+  };
 
   return (
     <div className='navbar_container'>
@@ -84,11 +100,20 @@ const Navbar = () => {
           </div>
         </div>
         <Link to="/login">
-          <div className="navbar_text navbar_signin hide_for_desktop">
+          <div className="navbar_text navbar_signin hide_for_desktop" onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}>
             <div style={{ fontSize: "14px" }}>{userName ? `Hello, ${userName}` : 'Hello, Sign In'}</div>
             <div style={{ fontWeight: "bold" }}>Account & List</div>
           </div>
         </Link>
+        {userName && showLogoutDropdown && (
+          <div className="navbar_logout_dropdown" onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}>
+            <div className="navbar_logout_item" onClick={handleLogout}>
+              Logout
+            </div>
+          </div>
+        )}
         <Link to="/order">
           <div className="navbar_text navbar_returns hide_for_desktop">
             <div style={{ fontSize: "14px" }}>Returns</div>

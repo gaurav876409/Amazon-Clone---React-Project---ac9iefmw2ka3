@@ -6,6 +6,9 @@ import { LiaRupeeSignSolid } from 'react-icons/lia'
 import Modal from 'react-modal';
 import CreditCardInput from 'react-credit-card-input';
 import { CartContext } from '../CartContext';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
 
 const PaymentStep = (props) => {
     // const [selectedMethod, setSelectedMethod] = useState();
@@ -15,7 +18,7 @@ const PaymentStep = (props) => {
     useEffect(() => {
         const paymentString = JSON.stringify(props.selectedMethod);
         localStorage.setItem('select', paymentString);
-      }, [props.selectedMethod]);
+    }, [props.selectedMethod]);
 
     const { item, increment, removeFromCart, updateQuantity } = useContext(CartContext);
 
@@ -46,7 +49,43 @@ const PaymentStep = (props) => {
     const [isOtherUPIModalOpen, setIsOtherUPIModalOpen] = React.useState(false);
     const [isEMIModalOpen, setIsEMIModalOpen] = React.useState(false);
     const [isCODModalOpen, setIsCODModalOpen] = React.useState(false);
+    const [cardNumber, setCardNumber] = useState('');
+    const [cardexp, setCardexp] = useState('');
+    const [cardcvv, setCardcvv] = useState('');
+    const [isAlertOpen1, setIsAlertOpen1] = useState(false);
+    const [isAlertOpen2, setIsAlertOpen2] = useState(false);
+    const [isAlertOpen3, setIsAlertOpen3] = useState(false);
+    const [upiId, setUpiId] = React.useState('');
+    const [isInputFilled, setIsInputFilled] = useState(false);
 
+    const handlePurchase = () => {
+        if (cardNumber === '' || cardcvv === '' || cardexp === '') {
+            return setIsAlertOpen1(true);
+        }
+        closeModals();
+    }
+    const handleCloseAlert1 = () => {
+        setIsAlertOpen1(false);
+    };
+    const handleCloseAlert3 = () => {
+        setIsAlertOpen3(false);
+    };
+    const handleInputChange = (event) => {
+        const { value } = event.target;
+        setUpiId(value);
+        setIsInputFilled(value !== '');
+    };
+    const handleSelected = () => {
+            if(isInputFilled && upiId.length > 8 && upiId.includes('@')){
+                setIsAlertOpen2(true)
+                closeModals()
+            }else{
+                setIsAlertOpen3(true)
+            }
+    }
+    const handleCloseAlert2 = () => {
+        setIsAlertOpen2(false);
+    };
     const openCardModal = () => {
         setIsCardModalOpen(true);
     };
@@ -84,8 +123,6 @@ const PaymentStep = (props) => {
             transform: 'translate(-50%, -50%)',
         },
     };
-
-    // Implement form state and validation logic for the payment step here
     return (
         <div className='billing_container'>
             <div className='billing_body'>
@@ -118,7 +155,7 @@ const PaymentStep = (props) => {
                         }}
                     />
                     <div className='amazon_radio_button'>
-                        <div><input type="radio" name="payment" value="Credit or debit card" onClick={openCardModal} onChange={props.handlePaymentMethodChange}/>
+                        <div><input type="radio" name="payment" value="Credit or debit card" onClick={openCardModal} />
                             <label for="credit" className='radio_text'>Credit or debit card</label>
                             <Modal
                                 isOpen={isCardModalOpen}
@@ -156,9 +193,16 @@ const PaymentStep = (props) => {
                                         )}
                                     />
                                 </div>
-                                <div className='button_flex_center'><button className='use_payment_method' onClick={closeModals}>Use this payment method</button></div>
+                                <div className='button_flex_center'><button className='use_payment_method' onClick={handlePurchase} onChange={props.handlePaymentMethodChange}>Use this payment method</button></div>
                             </Modal>
                         </div>
+                        <Snackbar open={isAlertOpen1} autoHideDuration={6000} onClose={handleCloseAlert1}>
+                            <Stack sx={{ width: '100%' }} spacing={2}>
+                                <Alert severity="error" onClose={handleCloseAlert1}>
+                                    Please fill details!
+                                </Alert>
+                            </Stack>
+                        </Snackbar>
                         <div className='sprite_image'>
                             <span className='sprite_image1'></span>
                             <span className='sprite_image2'></span>
@@ -192,10 +236,11 @@ const PaymentStep = (props) => {
                                     <div><RxCross1 onClick={closeModals} style={{ marginTop: "5px" }} /></div>
                                 </div>
                                 <div className='netbanking_code'>
-                                    <div><input type='text' className='amazon_balance_input' placeholder='Enter Code' /></div>
+                                    <div><input type='text' className='amazon_balance_input' placeholder='gaurav@upi' value={upiId}
+                                        onChange={handleInputChange}/></div>
                                     <div><button className='apply_button' style={{ marginLeft: "10px" }}>Apply</button></div>
                                 </div>
-                                <div className='button_flex_center'><button className='use_payment_method' onClick={closeModals}>Use this payment method</button></div>
+                                <div className='button_flex_center'><button className='use_payment_method' onClick={handleSelected}>Use this payment method</button></div>
                             </Modal>
                         </div>
                         <div className='radio_button_gap'><input type="radio" name="payment" value="Other UPI Apps" onClick={openOtherUPIModal} onChange={props.handlePaymentMethodChange}/>
@@ -213,13 +258,28 @@ const PaymentStep = (props) => {
                                     <div><RxCross1 onClick={closeModals} style={{ marginTop: "20px" }} /></div>
                                 </div>
                                 <div>
-                                    <input type='text' className='amazon_balance_input' placeholder='Ex: MobileNumber@upi' />
+                                    <input type='text' className='amazon_balance_input' placeholder='Ex: gaurav@upi' value={upiId}
+                                        onChange={handleInputChange} />
                                     <button className='apply_button' style={{ marginLeft: "10px" }}>Verify</button>
                                 </div>
-                                <div className='button_flex_center'><button className='use_payment_method' onClick={closeModals}>Use this payment method</button></div>
+                                <div className='button_flex_center'><button className='use_payment_method' onClick={handleSelected}>Use this payment method</button></div>
                             </Modal>
                         </div>
-                        <div className='radio_button_gap'><input type="radio" name="payment" value="EMI" onClick={openEMIModal} onChange={props.handlePaymentMethodChange}/>
+                        <Snackbar open={isAlertOpen2} autoHideDuration={6000} onClose={handleCloseAlert2}>
+                            <Stack sx={{ width: '100%' }} spacing={2}>
+                                <Alert severity="success" onClose={handleCloseAlert2}>
+                                    Method Selected Successfully!
+                                </Alert>
+                            </Stack>
+                        </Snackbar>
+                        <Snackbar open={isAlertOpen3} autoHideDuration={6000} onClose={handleCloseAlert3}>
+                            <Stack sx={{ width: '100%' }} spacing={2}>
+                                <Alert severity="error" onClose={handleCloseAlert3}>
+                                    Please fill details!
+                                </Alert>
+                            </Stack>
+                        </Snackbar>
+                        <div className='radio_button_gap'><input type="radio" name="payment" value="EMI" onClick={openEMIModal} />
                             <label for="credit" className='radio_text'>EMI</label>
                             <Modal
                                 isOpen={isEMIModalOpen}
@@ -257,10 +317,10 @@ const PaymentStep = (props) => {
                                         )}
                                     />
                                 </div>
-                                <div className='button_flex_center'><button className='use_payment_method' onClick={closeModals}>Use this payment method</button></div>
+                                <div className='button_flex_center'><button className='use_payment_method' onClick={handlePurchase} onChange={props.handlePaymentMethodChange}>Use this payment method</button></div>
                             </Modal>
                         </div>
-                        <div className='radio_button_gap'><input type="radio" name="payment" value="Cash/Pay on Delivery" onClick={openCODModal} onChange={props.handlePaymentMethodChange}/>
+                        <div className='radio_button_gap'><input type="radio" name="payment" value="Cash/Pay on Delivery" onClick={openCODModal} onChange={props.handlePaymentMethodChange} />
                             <label for="credit" className='radio_text'>Cash/Pay on Delivery</label>
                             <Modal
                                 isOpen={isCODModalOpen}
