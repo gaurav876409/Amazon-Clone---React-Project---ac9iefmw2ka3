@@ -104,7 +104,7 @@ const Payment = () => {
                     </Button>
                 </div>
                 <div className='next_button'>
-                    <Button disabled={isdisable && activeStep !== 0} variant="contained" color="primary" onClick={handleNext}>
+                    <Button disabled={isdisable && activeStep !== 0 && activeStep === 2} variant="contained" color="primary" onClick={handleNext}>
                         Next
                     </Button>
                 </div>
