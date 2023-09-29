@@ -4,17 +4,12 @@ import { PiPlusThin } from 'react-icons/pi';
 import { RxCross1 } from 'react-icons/rx';
 import { LiaRupeeSignSolid } from 'react-icons/lia'
 import Modal from 'react-modal';
-import CreditCardInput from 'react-credit-card-input';
 import { CartContext } from '../CartContext';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 
 const PaymentStep = (props) => {
-    // const [selectedMethod, setSelectedMethod] = useState();
-    // const handlePaymentMethodChange = (e) => {
-    //     props.setSelectedMethod(e.target.value)
-    // }
     useEffect(() => {
         const paymentString = JSON.stringify(props.selectedMethod);
         localStorage.setItem('select', paymentString);
@@ -49,20 +44,32 @@ const PaymentStep = (props) => {
     const [isOtherUPIModalOpen, setIsOtherUPIModalOpen] = React.useState(false);
     const [isEMIModalOpen, setIsEMIModalOpen] = React.useState(false);
     const [isCODModalOpen, setIsCODModalOpen] = React.useState(false);
-    const [cardNumber, setCardNumber] = useState('');
-    const [cardexp, setCardexp] = useState('');
-    const [cardcvv, setCardcvv] = useState('');
     const [isAlertOpen1, setIsAlertOpen1] = useState(false);
     const [isAlertOpen2, setIsAlertOpen2] = useState(false);
     const [isAlertOpen3, setIsAlertOpen3] = useState(false);
     const [upiId, setUpiId] = React.useState('');
     const [isInputFilled, setIsInputFilled] = useState(false);
+    const [cardNumber, setCardNumber] = useState('');
+    const [cvv, setCVV] = useState('');
+    const [expiry, setExpiry] = useState('');
+    const [error, setError] = useState('');
+    const [validate, setValidate] = useState(false);
+    // const [selectedMethod, setSelectedMethod] = useState();
 
-    const handlePurchase = () => {
-        if (cardNumber === '' || cardcvv === '' || cardexp === '') {
-            return setIsAlertOpen1(true);
+    const handlePurchase = (e) => {
+        e.preventDefault();
+        if (!cardNumber || !cvv || !expiry) {
+            setError('All fields are required.');
+        } else if (!/^\d{16}$/.test(cardNumber)) {
+            setError('Invalid card number. It should be 16 digits.');
+        } else if (!/^\d{3}$/.test(cvv)) {
+            setError('Invalid CVV. It should be 3 digits.');
+        } else if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
+            setError('Invalid expiry date. It should be in MM/YY format.');
+        } else {
+            setError('');
+            setValidate(true)
         }
-        closeModals();
     }
     const handleCloseAlert1 = () => {
         setIsAlertOpen1(false);
@@ -76,12 +83,18 @@ const PaymentStep = (props) => {
         setIsInputFilled(value !== '');
     };
     const handleSelected = () => {
-            if(isInputFilled && upiId.length > 8 && upiId.includes('@')){
-                setIsAlertOpen2(true)
-                closeModals()
-            }else{
-                setIsAlertOpen3(true)
-            }
+        if (isInputFilled && upiId.length > 7 && upiId.includes('@')) {
+            setValidate(true)
+        } else {
+            setIsAlertOpen3(true)
+        }
+    }
+    const handleConfirm = () => {
+        setIsAlertOpen2(true);
+        closeModals();
+    }
+    const handleApply = () => {
+        setIsAlertOpen1(true)
     }
     const handleCloseAlert2 = () => {
         setIsAlertOpen2(false);
@@ -123,11 +136,14 @@ const PaymentStep = (props) => {
             transform: 'translate(-50%, -50%)',
         },
     };
+        // const savedPaymentMethod = JSON.parse(localStorage.getItem('select'));
+
+
     return (
         <div className='billing_container'>
             <div className='billing_body'>
                 <div className='amazon_balance'>
-                    <h4>Your available balance</h4>
+                    <h4>Your available balance <span style={{color: 'rgba(0, 0, 0, 0.5)'}}>₹0.00</span></h4>
                     <hr
                         style={{
                             background: "#BBBFBF",
@@ -140,7 +156,7 @@ const PaymentStep = (props) => {
                     <div className='amazon_balance_content'>
                         <div>{<PiPlusThin style={{ marginTop: "5px" }} />}</div>
                         <div><input type='text' className='amazon_balance_input' placeholder='Enter Code' /></div>
-                        <div><button className='apply_button'>Apply</button></div>
+                        <div><button className='apply_button' onClick={handleApply}>Apply</button></div>
                     </div>
                 </div>
                 <div className='amazon_card'>
@@ -155,7 +171,7 @@ const PaymentStep = (props) => {
                         }}
                     />
                     <div className='amazon_radio_button'>
-                        <div><input type="radio" name="payment" value="Credit or debit card" onClick={openCardModal} />
+                        <div><input type="radio" name="payment" value="Credit or debit card" onClick={openCardModal} checked={JSON.parse(localStorage.getItem('select')) === 'Credit or debit card'}/>
                             <label for="credit" className='radio_text'>Credit or debit card</label>
                             <Modal
                                 isOpen={isCardModalOpen}
@@ -168,38 +184,47 @@ const PaymentStep = (props) => {
                                     <div><RxCross1 onClick={closeModals} style={{ marginTop: "20px" }} /></div>
                                 </div>
                                 <div className='credit_modal_detail'>
-                                    <CreditCardInput
-                                        cardCVCInputRenderer={({ handleCardCVCChange, props }) => (
+                                    <form onSubmit={handlePurchase}>
+                                        <div className='credit_modal_detail_form'>
                                             <input
-                                                {...props}
-                                                onChange={handleCardCVCChange(e => console.log('cvc change', e))}
+                                                type="text"
+                                                placeholder="Card Number"
+                                                value={cardNumber}
+                                                onChange={(e) => setCardNumber(e.target.value)}
                                             />
-                                        )}
-                                        cardExpiryInputRenderer={({ handleCardExpiryChange, props }) => (
+                                        </div>
+                                        <div className='credit_modal_detail_form'>
                                             <input
-                                                {...props}
-                                                onChange={handleCardExpiryChange(e =>
-                                                    console.log('expiry change', e)
-                                                )}
+                                                type="text"
+                                                placeholder="CVV"
+                                                value={cvv}
+                                                onChange={(e) => setCVV(e.target.value)}
                                             />
-                                        )}
-                                        cardNumberInputRenderer={({ handleCardNumberChange, props }) => (
+                                        </div>
+                                        <div className='credit_modal_detail_form'>
                                             <input
-                                                {...props}
-                                                onChange={handleCardNumberChange(e =>
-                                                    console.log('number change', e)
-                                                )}
+                                                type="text"
+                                                placeholder="Expiry (MM/YY)"
+                                                value={expiry}
+                                                onChange={(e) => setExpiry(e.target.value)}
                                             />
-                                        )}
-                                    />
+                                        </div>
+                                        {error && <p className="credit_modal_detail_error">{error}</p>}
+                                        {!validate &&
+                                            <button onClick={handlePurchase} className='credit_modal_detail_button'>validate form details</button>
+                                        }
+                                        {validate && <p className='credit_modal_detail_success'>Profile Matched</p>}
+                                    </form>
                                 </div>
-                                <div className='button_flex_center'><button className='use_payment_method' onClick={handlePurchase} onChange={props.handlePaymentMethodChange}>Use this payment method</button></div>
+                                {validate &&
+                                    <div className='button_flex_center credit_modal_detail_confirm'><input type="checkbox" value="Credit or debit card" className='use_payment_method credit_modal_detail_checkbox' onClick={handleConfirm} onChange={props.handlePaymentMethodChange} />Confirm</div>
+                                }
                             </Modal>
                         </div>
                         <Snackbar open={isAlertOpen1} autoHideDuration={6000} onClose={handleCloseAlert1}>
                             <Stack sx={{ width: '100%' }} spacing={2}>
                                 <Alert severity="error" onClose={handleCloseAlert1}>
-                                    Please fill details!
+                                    Insufficient Balance!
                                 </Alert>
                             </Stack>
                         </Snackbar>
@@ -212,7 +237,7 @@ const PaymentStep = (props) => {
                             <span className='sprite_image6'></span>
                             <span className='sprite_image7'></span>
                         </div>
-                        <div className='radio_button_gap'><input type="radio" name="payment" value="Net Banking" onClick={openNetBankingModal} onChange={props.handlePaymentMethodChange}/>
+                        <div className='radio_button_gap'><input type="radio" name="payment" value="Net Banking" onClick={openNetBankingModal} checked={JSON.parse(localStorage.getItem('select')) === 'Net Banking'}/>
                             <label for="credit" className='radio_text'>Net Banking</label>
                             <Modal
                                 isOpen={isNetBankingModalOpen}
@@ -220,30 +245,26 @@ const PaymentStep = (props) => {
                                 style={customStyles}
                                 contentLabel="Example Modal"
                             >
-                                <div className='netbanking_header'>
+                                <div className='otherupi_header'>
                                     <div>
-                                        <select style={{ height: "34px" }}>
-                                            <option value="0">Choose an Option</option>
-                                            <option value="1">SBI Bank</option>
-                                            <option value="2">ICICI Bank</option>
-                                            <option value="3">HDFC Bank</option>
-                                            <option value="4">Kotak Bank</option>
-                                            <option value="5">Andra Bank</option>
-                                            <option value="6">Canara Bank</option>
-                                            <option value="7">Cosmos Bank</option>
-                                        </select>
+                                        <h3>Please enter your UPI ID</h3>
                                     </div>
-                                    <div><RxCross1 onClick={closeModals} style={{ marginTop: "5px" }} /></div>
+                                    <div><RxCross1 onClick={closeModals} style={{ marginTop: "20px" }} /></div>
                                 </div>
-                                <div className='netbanking_code'>
+                                <div className='netbanking_code' style={{ marginBottom: '10px' }}>
                                     <div><input type='text' className='amazon_balance_input' placeholder='gaurav@upi' value={upiId}
-                                        onChange={handleInputChange}/></div>
-                                    <div><button className='apply_button' style={{ marginLeft: "10px" }}>Apply</button></div>
+                                        onChange={handleInputChange} /></div>
+                                    {!validate &&
+                                        <div><button className='apply_button' style={{ marginLeft: "10px" }} onClick={handleSelected}>Verify</button></div>
+                                    }
                                 </div>
-                                <div className='button_flex_center'><button className='use_payment_method' onClick={handleSelected}>Use this payment method</button></div>
+                                {/* <div className='button_flex_center'><button className='use_payment_method' onClick={handleSelected}>Use this payment method</button></div> */}
+                                {validate &&
+                                    <div className='button_flex_center credit_modal_detail_confirm'><input type="checkbox" value="Net Banking" className='use_payment_method credit_modal_detail_checkbox' onClick={handleConfirm} onChange={props.handlePaymentMethodChange} />Confirm</div>
+                                }
                             </Modal>
                         </div>
-                        <div className='radio_button_gap'><input type="radio" name="payment" value="Other UPI Apps" onClick={openOtherUPIModal} onChange={props.handlePaymentMethodChange}/>
+                        <div className='radio_button_gap'><input type="radio" name="payment" value="Other UPI Apps" onClick={openOtherUPIModal} checked={JSON.parse(localStorage.getItem('select')) === 'Other UPI Apps'}/>
                             <label for="credit" className='radio_text'>Other UPI Apps</label>
                             <Modal
                                 isOpen={isOtherUPIModalOpen}
@@ -257,12 +278,16 @@ const PaymentStep = (props) => {
                                     </div>
                                     <div><RxCross1 onClick={closeModals} style={{ marginTop: "20px" }} /></div>
                                 </div>
-                                <div>
+                                <div style={{ marginBottom: '10px' }}>
                                     <input type='text' className='amazon_balance_input' placeholder='Ex: gaurav@upi' value={upiId}
                                         onChange={handleInputChange} />
-                                    <button className='apply_button' style={{ marginLeft: "10px" }}>Verify</button>
+                                    {!validate &&
+                                        <button className='apply_button' style={{ marginLeft: "10px" }} onClick={handleSelected}>Verify</button>
+                                    }
                                 </div>
-                                <div className='button_flex_center'><button className='use_payment_method' onClick={handleSelected}>Use this payment method</button></div>
+                                {validate &&
+                                    <div className='button_flex_center credit_modal_detail_confirm'><input type="checkbox" value="Other UPI Apps" className='use_payment_method credit_modal_detail_checkbox' onClick={handleConfirm} onChange={props.handlePaymentMethodChange} />Confirm</div>
+                                }
                             </Modal>
                         </div>
                         <Snackbar open={isAlertOpen2} autoHideDuration={6000} onClose={handleCloseAlert2}>
@@ -275,11 +300,11 @@ const PaymentStep = (props) => {
                         <Snackbar open={isAlertOpen3} autoHideDuration={6000} onClose={handleCloseAlert3}>
                             <Stack sx={{ width: '100%' }} spacing={2}>
                                 <Alert severity="error" onClose={handleCloseAlert3}>
-                                    Please fill details!
+                                    Please fill details min 8 char and include @!
                                 </Alert>
                             </Stack>
                         </Snackbar>
-                        <div className='radio_button_gap'><input type="radio" name="payment" value="EMI" onClick={openEMIModal} />
+                        <div className='radio_button_gap'><input type="radio" name="payment" value="EMI" onClick={openEMIModal} checked={JSON.parse(localStorage.getItem('select')) === 'EMI'}/>
                             <label for="credit" className='radio_text'>EMI</label>
                             <Modal
                                 isOpen={isEMIModalOpen}
@@ -292,35 +317,44 @@ const PaymentStep = (props) => {
                                     <div><RxCross1 onClick={closeModals} style={{ marginTop: "20px" }} /></div>
                                 </div>
                                 <div className='credit_modal_detail'>
-                                    <CreditCardInput
-                                        cardCVCInputRenderer={({ handleCardCVCChange, props }) => (
+                                    <form onSubmit={handlePurchase}>
+                                        <div className='credit_modal_detail_form'>
                                             <input
-                                                {...props}
-                                                onChange={handleCardCVCChange(e => console.log('cvc change', e))}
+                                                type="text"
+                                                placeholder="Card Number"
+                                                value={cardNumber}
+                                                onChange={(e) => setCardNumber(e.target.value)}
                                             />
-                                        )}
-                                        cardExpiryInputRenderer={({ handleCardExpiryChange, props }) => (
+                                        </div>
+                                        <div className='credit_modal_detail_form'>
                                             <input
-                                                {...props}
-                                                onChange={handleCardExpiryChange(e =>
-                                                    console.log('expiry change', e)
-                                                )}
+                                                type="text"
+                                                placeholder="CVV"
+                                                value={cvv}
+                                                onChange={(e) => setCVV(e.target.value)}
                                             />
-                                        )}
-                                        cardNumberInputRenderer={({ handleCardNumberChange, props }) => (
+                                        </div>
+                                        <div className='credit_modal_detail_form'>
                                             <input
-                                                {...props}
-                                                onChange={handleCardNumberChange(e =>
-                                                    console.log('number change', e)
-                                                )}
+                                                type="text"
+                                                placeholder="Expiry (MM/YY)"
+                                                value={expiry}
+                                                onChange={(e) => setExpiry(e.target.value)}
                                             />
-                                        )}
-                                    />
+                                        </div>
+                                        {error && <p className="credit_modal_detail_error">{error}</p>}
+                                        {!validate &&
+                                            <button onClick={handlePurchase} className='credit_modal_detail_button'>validate form details</button>
+                                        }
+                                        {validate && <p className='credit_modal_detail_success'>Profile Matched</p>}
+                                    </form>
                                 </div>
-                                <div className='button_flex_center'><button className='use_payment_method' onClick={handlePurchase} onChange={props.handlePaymentMethodChange}>Use this payment method</button></div>
+                                {validate &&
+                                    <div className='button_flex_center credit_modal_detail_confirm'><input type="checkbox" value="EMI" className='use_payment_method credit_modal_detail_checkbox' onClick={handleConfirm} onChange={props.handlePaymentMethodChange} />Confirm</div>
+                                }
                             </Modal>
                         </div>
-                        <div className='radio_button_gap'><input type="radio" name="payment" value="Cash/Pay on Delivery" onClick={openCODModal} onChange={props.handlePaymentMethodChange} />
+                        <div className='radio_button_gap'><input type="radio" name="payment" value="Cash/Pay on Delivery" onClick={openCODModal} checked={JSON.parse(localStorage.getItem('select')) === 'Cash/Pay on Delivery'}/>
                             <label for="credit" className='radio_text'>Cash/Pay on Delivery</label>
                             <Modal
                                 isOpen={isCODModalOpen}
@@ -334,7 +368,7 @@ const PaymentStep = (props) => {
                                     </div>
                                     <div><RxCross1 onClick={closeModals} /></div>
                                 </div>
-                                <div className='button_flex_center'><button className='use_payment_method' onClick={closeModals}>Use this payment method</button></div>
+                                <div className='button_flex_center credit_modal_detail_confirm'><input type="checkbox" value="Cash/Pay on Delivery" className='use_payment_method credit_modal_detail_checkbox' onClick={handleConfirm} onChange={props.handlePaymentMethodChange} />Confirm</div>
                             </Modal>
                         </div>
                     </div>

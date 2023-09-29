@@ -10,8 +10,24 @@ import PaymentStep from './PaymentStep';
 import ReviewStep from './ReviewStep';
 import { Link } from 'react-router-dom';
 const Payment = () => {
-    const [selectedMethod, setSelectedMethod] = useState();
-    const [isdisable, setIsdisable] = useState(true);
+    const [selectedMethod, setSelectedMethod] = useState(() => {
+        const gaurav = localStorage.getItem('select');
+        if(gaurav){
+            return JSON.parse(gaurav);
+        }
+        return null;
+    });
+    const [isdisable, setIsdisable] = useState(() => {
+        const gaurav = localStorage.getItem('select');
+        if(gaurav){
+            const garg = JSON.parse(gaurav);
+            if(garg !== null){
+                return false
+            }
+            return true
+        }
+        return true;
+    });
     const handlePaymentMethodChange = (e) => {
         setIsdisable(false)
         setSelectedMethod(e.target.value)

@@ -240,7 +240,16 @@ const ReviewStep = ({ formData, setActiveStep, activeStep }) => {
           </div>
         </div>
       </div>
-      {visible && (
+      {paymentDetailMethod === 'Cash/Pay on Delivery' ? (visible && (
+        <div className='payment_success_message'>
+          <img src="https://www.nicepng.com/png/detail/1-10729_free-vector-green-checkmark-clip-art-green-circle.png" alt="Checkmark" />
+          <h2>Order Placed Successful!</h2>
+          <p>Thank you for your purchase.</p>
+          <Link to='/order'>
+            <button>See Orders</button>
+          </Link>
+        </div>
+      )) : (visible && (
         <div className='payment_success_message'>
           <img src="https://www.nicepng.com/png/detail/1-10729_free-vector-green-checkmark-clip-art-green-circle.png" alt="Checkmark" />
           <h2>Payment Successful!</h2>
@@ -249,7 +258,8 @@ const ReviewStep = ({ formData, setActiveStep, activeStep }) => {
             <button>See Orders</button>
           </Link>
         </div>
-      )}
+      ))}
+
       {isLoading && (
         <Box sx={{
           display: 'flex',

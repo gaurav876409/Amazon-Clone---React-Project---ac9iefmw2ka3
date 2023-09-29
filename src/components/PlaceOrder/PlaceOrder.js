@@ -3,7 +3,6 @@ import { useParams } from 'react-router';
 import { Paper, Rating } from '@mantine/core';
 import Grid from '@mui/material/Grid';
 import './PlaceOrder.css';
-import { Link } from 'react-router-dom';
 import { CartContext } from '../CartContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -12,11 +11,18 @@ import { useNavigate } from 'react-router-dom';
 const PlaceOrder = (props) => {
     const { item, size, increment } = useContext(CartContext);
     const [productDetails, setProductDetails] = useState([]);
+    const [isAddedToCart, setIsAddedToCart] = useState(false);
     let { id } = useParams();
     const navigate = useNavigate();
-    const addTOCart = function(){
-        increment(productDetails);
-    }
+    const addTOCart = function () {
+        const existingItemIndex = item.findIndex((cartItem) => cartItem.id === productDetails.id);
+        if (existingItemIndex !== -1) {
+            setIsAddedToCart(true);
+        } else {
+            setIsAddedToCart(false);
+            increment(productDetails);
+        }
+    };
     const buyNow = function () {
         const isUser = localStorage.getItem('userName');
         if(isUser){
@@ -87,7 +93,7 @@ const PlaceOrder = (props) => {
                                 </div>
                                 </div>
                             <div className='placeorder_mobile'>
-                                <button className="placeorder_button addtocart" onClick={addTOCart}>Add to Cart</button>
+                                <button className="placeorder_button addtocart" onClick={addTOCart}>{isAddedToCart ? "Item Added to Cart" : "Add to Cart"}</button>
                                 {/* <Link to="/payment"> */}
                                     <button className="placeorder_button buynow" key="buynow" onClick={buyNow}>Buy Now</button>
                                 {/* </Link> */}

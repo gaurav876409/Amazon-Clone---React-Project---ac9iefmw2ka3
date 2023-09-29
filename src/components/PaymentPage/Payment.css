@@ -331,6 +331,38 @@ td {
     width: 40vw;
     object-fit: contain;
 }
+.credit_modal_detail_form{
+    width: 300px;
+}
+.credit_modal_detail_form input{
+    width: 290px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+.credit_modal_detail_button{
+    width: 298px;
+    height: 35px;
+}
+.credit_modal_detail_error{
+    color: red;
+    margin-top: -5px;
+}
+.credit_modal_detail_success{
+    color: green;
+    margin-top: -5px;
+}
+.credit_modal_detail_checkbox{
+    width: 18px;
+    height: 18px;
+    margin-left: -18px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+.credit_modal_detail_confirm{
+    margin-top: -5px;
+    font-size: 18px;
+    font-weight: 500;
+}
 
 @media screen and (max-width: 480px) {
     .shipping_container{
