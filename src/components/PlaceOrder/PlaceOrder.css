@@ -44,6 +44,9 @@
     border: 0px;
     color: black;
 }
+.placeorder_button:hover{
+    background-color: #bdc549;
+}
 
 .buynow {
     background-color: #FFD712;
